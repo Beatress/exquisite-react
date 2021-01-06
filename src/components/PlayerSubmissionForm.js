@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 import './PlayerSubmissionForm.css';
 
 const PlayerSubmissionForm = (props) => {
-  // Temporarily store the words list before putting them in state object
-  // This solves an infinite re-render loop issue with setState
-  // let wordsList = [];
-
+  // Function to pull the base state of words from the fields prop 
   const generateWordObject = () => {
     let wordsObject = {};
     props.fields.forEach(word => {
@@ -21,6 +18,7 @@ const PlayerSubmissionForm = (props) => {
 
   // We have to define these before the inputElements makes the textboxes
   const [words, setWords] = useState(generateWordObject);
+
   const onInputChange = (event) => {
     const newWords = {...words};
 
@@ -28,6 +26,18 @@ const PlayerSubmissionForm = (props) => {
     setWords(newWords);
   }
 
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+
+    // Send words to game
+    props.sendSubmission(words);
+
+    // Clear words
+    setWords(generateWordObject);
+  }
+
+
+  
   const inputElements = props.fields.map((field, i) => {
     if (typeof field === 'string') {
       return(
@@ -36,33 +46,19 @@ const PlayerSubmissionForm = (props) => {
         </div>
         ); // Return just the hardcoded word
     } else { // Else it's an object
-      // We want to add the key to the words array
-      // wordsList = [...wordsList, field.key];
-      // const newWords = {...words};
-      // console.log(newWords);
-      // newWords[field.key] = '';
-      // console.log(newWords);
-      // setWords(newWords);
-
       return(
       <div key={i}>
-        <input name={field.key} type="text" placeholder={field.placeholder} value={words.key} onChange={onInputChange} />
+        <input name={field.key} type="text" placeholder={field.placeholder} value={words[field.key]} onChange={onInputChange} />
       </div>
       )
     }
   });
 
-  // Convert the wordsList array into a words object that we can store in state
-  // const wordsObject = wordsList.reduce((acc, curr) => (acc[curr] = '', acc), {});
-  // setWords(wordsObject);
-
-  console.log(words);
-
   return (
     <div className="PlayerSubmissionForm">
       <h3>Player Submission Form for Player #{props.index}</h3>
 
-      <form className="PlayerSubmissionForm__form" >
+      <form className="PlayerSubmissionForm__form" onSubmit={onFormSubmit}>
 
         <div className="PlayerSubmissionForm__poem-inputs">
 

@@ -16,9 +16,25 @@ const Game = () => {
     }
   }).join(' ');
 
-  const addLineToPoem = (event) => {
+  const addLineToPoem = (words) => {
+    // Use words object to fill in fields and join into string
+    let newLine = FIELDS.map((field, i) => {
+      if (typeof field === 'string') {
+        return field;
+      } else {
+        return words[field.key];
+      }
+    }).join(' ');
 
+    const newPoem = [...poem, newLine];
+
+    setPoem(newPoem);
+
+    // Advance current player count
+    setCurrentPlayer(currentPlayer + 1);
   };
+
+  console.log(poem);
 
   return (
     <div className="Game">
@@ -70,7 +86,10 @@ const FIELDS = [
     key: 'noun2',
     placeholder: 'noun',
   },
-  '.',
+  {
+    key: 'adv2',
+    placeholder: 'adverb',
+  }
 ];
 
 export default Game;
