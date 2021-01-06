@@ -4,11 +4,21 @@ import './FinalPoem.css';
 
 const FinalPoem = (props) => {
 
+  const finalPoem = props.submissions.map((line, i) => {
+    return(
+      <li key={i}>
+        {line}
+      </li>
+    )
+  });
+
   return (
     <div className="FinalPoem">
       <section className="FinalPoem__poem">
         <h3>Final Poem</h3>
-
+        <ul className="FinalPoem__poem--ul">
+          {finalPoem}
+        </ul>
       </section>
 
       <div className="FinalPoem__reveal-btn-container">

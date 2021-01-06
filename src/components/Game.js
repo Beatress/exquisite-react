@@ -34,8 +34,6 @@ const Game = () => {
     setCurrentPlayer(currentPlayer + 1);
   };
 
-  console.log(poem);
-
   return (
     <div className="Game">
       <h2>Game</h2>
@@ -52,7 +50,7 @@ const Game = () => {
 
       <PlayerSubmissionForm index={currentPlayer} fields={FIELDS} sendSubmission={addLineToPoem} />
 
-      <FinalPoem />
+      <FinalPoem submissions={poem}/>
 
     </div>
   );
