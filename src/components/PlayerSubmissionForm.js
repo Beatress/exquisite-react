@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+]import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './PlayerSubmissionForm.css';
 
 const PlayerSubmissionForm = () => {
+  const [words, setWords] = useState([]);
+
   return (
     <div className="PlayerSubmissionForm">
       <h3>Player Submission Form for Player #{  }</h3>
