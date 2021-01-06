@@ -6,6 +6,7 @@ import RecentSubmission from './RecentSubmission';
 
 const Game = () => {
   const [poem, setPoem] = useState([]);
+  const [currentPlayer, setCurrentPlayer] = useState(1);
 
   const exampleFormat = FIELDS.map((field) => {
     if (field.key) {
@@ -14,6 +15,10 @@ const Game = () => {
       return field;
     }
   }).join(' ');
+
+  const addLineToPoem = (event) => {
+
+  };
 
   return (
     <div className="Game">
@@ -29,7 +34,7 @@ const Game = () => {
 
       <RecentSubmission />
 
-      <PlayerSubmissionForm />
+      <PlayerSubmissionForm index={currentPlayer} fields={FIELDS} sendSubmission={addLineToPoem} />
 
       <FinalPoem />
 

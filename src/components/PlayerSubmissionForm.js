@@ -1,10 +1,26 @@
-]import React, { useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './PlayerSubmissionForm.css';
 
-const PlayerSubmissionForm = () => {
+const PlayerSubmissionForm = (props) => {
   const [words, setWords] = useState([]);
+
+  const inputElements = props.fields.map((field, i) => {
+    if (typeof field === 'string') {
+      return(
+        <div key={i}>
+          {field}
+        </div>
+        ); // Return just the hardcoded word
+    } else { // Else it's an object
+      return(
+      <div key={i}>
+        <input name={field.key} type="text" placeholder={field.placeholder} />
+      </div>
+      )
+    }
+  });
 
   return (
     <div className="PlayerSubmissionForm">
@@ -17,9 +33,9 @@ const PlayerSubmissionForm = () => {
           {
             // Put your form inputs here... We've put in one below as an example
           }
-          <input
-            placeholder="hm..."
-            type="text" />
+          {console.log(typeof inputElements)}
+          {console.log(inputElements)}
+          {inputElements}
 
         </div>
 
