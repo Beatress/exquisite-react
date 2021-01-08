@@ -36,8 +36,6 @@ const PlayerSubmissionForm = (props) => {
     setWords(generateWordObject);
   }
 
-
-  
   const inputElements = props.fields.map((field, i) => {
     if (typeof field === 'string') {
       return(
@@ -48,7 +46,9 @@ const PlayerSubmissionForm = (props) => {
     } else { // Else it's an object
       return(
       <div key={i}>
-        <input name={field.key} type="text" placeholder={field.placeholder} value={words[field.key]} onChange={onInputChange} />
+        <input name={field.key} type="text" placeholder={field.placeholder} 
+        value={words[field.key]} onChange={onInputChange} 
+        className={(words[field.key].length === 0) ? 'pink' : 'wiggle'}/>
       </div>
       )
     }

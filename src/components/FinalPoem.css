@@ -25,3 +25,11 @@
   font-size: 2rem;
   font-family: fantasy;
 }
+
+.visible {
+  visibility: visible;
+}
+
+.hidden {
+  display: none;
+}

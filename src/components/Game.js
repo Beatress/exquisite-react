@@ -7,6 +7,7 @@ import RecentSubmission from './RecentSubmission';
 const Game = () => {
   const [poem, setPoem] = useState([]);
   const [currentPlayer, setCurrentPlayer] = useState(1);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const exampleFormat = FIELDS.map((field) => {
     if (field.key) {
@@ -16,7 +17,7 @@ const Game = () => {
     }
   }).join(' ');
 
-  const addLineToPoem = (words) => {
+  const enterLineToPoem = (words) => {
     // Use words object to fill in fields and join into string
     let newLine = FIELDS.map((field, i) => {
       if (typeof field === 'string') {
@@ -34,6 +35,23 @@ const Game = () => {
     setCurrentPlayer(currentPlayer + 1);
   };
 
+  // Function to check if recent submission should be shown
+  const showRecentSubmission = () => {
+    if (poem.length > 0 && !isSubmitted) {
+      return true
+    } else {
+      return false
+    }
+  };
+
+  // Function to end game and reveal poem + hide non-relevant elements
+  const revealPoem = () => {
+    setIsSubmitted(true);
+  };
+
+  // TODO remove
+  console.log(isSubmitted);
+
   return (
     <div className="Game">
       <h2>Game</h2>
@@ -46,12 +64,15 @@ const Game = () => {
         { exampleFormat }
       </p>
 
-      <RecentSubmission />
+      <div className={showRecentSubmission() ? 'visible' : 'hidden'}>
+        <RecentSubmission submission={poem[poem.length-1]}/>
+      </div>
 
-      <PlayerSubmissionForm index={currentPlayer} fields={FIELDS} sendSubmission={addLineToPoem} />
+      <div className={isSubmitted ? 'hidden' : 'visible'}>
+        <PlayerSubmissionForm index={currentPlayer} fields={FIELDS} sendSubmission={enterLineToPoem} />
+      </div>
 
-      <FinalPoem submissions={poem}/>
-
+      <FinalPoem submissions={poem} isSubmitted={isSubmitted} revealPoem={revealPoem}/>
     </div>
   );
 }

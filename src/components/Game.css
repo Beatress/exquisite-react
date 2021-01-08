@@ -2,3 +2,11 @@
   text-align: center;
   font-style: italic;
 }
+
+.visible {
+  visibility: visible;
+}
+
+.hidden {
+  display: none;
+}
